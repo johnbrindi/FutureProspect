@@ -5,8 +5,11 @@ import {
   MessageCircle, Share2, Search
 } from 'lucide-react';
 import './studentDashboard.css';
+import { useLocation } from 'react-router-dom';
 
 const StudentDashboard = () => {
+  const location = useLocation();
+  const userName = location.state?.userName || 'User'; // Default to 'User' if no name is found
   const [isMessagingOpen, setIsMessagingOpen] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
 
@@ -42,6 +45,7 @@ const StudentDashboard = () => {
 
   return (
     <div className="dashboard">
+    <h1 className="welcome-message">Welcome, {userName}!</h1>
       {isMessagingOpen && (
         <div className="messaging-window">
           <div className="messaging-header">
@@ -87,17 +91,17 @@ const StudentDashboard = () => {
               ) : (
                 <User />
               )}
-              
-              <label className="upload-button">
-                <Upload />
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                //   className="hidden"
-                />
-              </label>
             </div>
+            <label className="upload-button">
+              <Upload />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                style={{ display: 'none' }} // Hide the default file input
+              />
+              Upload
+            </label>
             <h2>John Brindi</h2>
             <p>Computer Engineering Student</p>
             <p><MapPin /> Bamenda, Cameroon</p>

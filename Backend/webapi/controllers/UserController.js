@@ -13,6 +13,9 @@ export const register = async (req, res) => {
         console.log('Request Body:', req.body);
         const { firstName, lastName, email, password, phoneNumber, department, year } = req.body;
 
+        // Log the destructured values to check for undefined
+        console.log('Destructured Values:', { firstName, lastName, email, password, phoneNumber, department, year });
+
         // Hash the password before saving the user
         const hashedPassword = await bcrypt.hash(password, 10);
         const N_user = await User.create({ firstName, lastName, email, password: hashedPassword, phoneNumber, department, year });
@@ -20,9 +23,14 @@ export const register = async (req, res) => {
         // Generate a JWT token for the new user
         const token = jwt.sign({ user_id: N_user.user_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        // Respond with the new user and the token
-        res.status(201).json({ N_user, token});
-        console.log("User created successfully:", req.body);
+         // Respond with the user's first name and the token
+         const response = {
+            firstName: N_user.firstname, // Ensure this matches your user model
+            token,
+        };
+        
+        res.status(201).json(response);
+        console.log("User created successfully:", response);
     } catch (error) {
         console.error('Error in register controller:', error);
         res.status(400).json({ error: error.message });

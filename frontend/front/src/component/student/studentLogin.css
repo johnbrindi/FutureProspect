@@ -1,0 +1,57 @@
+.login-container {
+    max-width: 400px; /* Max width for the form */
+    margin: 0 auto; /* Center the form */
+    padding: 20px;
+    border: 1px solid #ccc; /* Border for the form */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #fff; /* Background color */
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+}
+
+.error-message {
+    color: red; /* Red color for error messages */
+    margin-bottom: 15px; /* Space below the error message */
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form groups */
+}
+
+label {
+    margin-bottom: 5px; /* Space below the label */
+    font-weight: bold; /* Bold labels */
+}
+
+input {
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 4px; /* Rounded corners for inputs */
+    width: 100%; /* Full width inputs */
+}
+
+.login-button {
+    padding: 10px; /* Padding for the button */
+    background-color: #3b82f6; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border for button */
+    border-radius: 4px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.login-button:hover {
+    background-color: #2563eb; /* Darker shade on hover */
+}
+
+.register-link {
+    text-align: center; /* Center the register link */
+    margin-top: 10px; /* Space above the register link */
+}

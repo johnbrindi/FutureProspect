@@ -1,7 +1,11 @@
 import React, { useState} from 'react';
 import "./studentReg.css"
-
 import { FaTimes } from 'react-icons/fa'
+import { resgiterUser } from '../services/api.js';
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
+
 const StudentRegistration =({show, handleClose, children}) => {
 
   const [formData, setFormData] = useState({
@@ -16,7 +20,7 @@ const StudentRegistration =({show, handleClose, children}) => {
   });
 
   const [error, setError] = useState('');
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -25,14 +29,28 @@ const StudentRegistration =({show, handleClose, children}) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Basic validation
+     // Basic validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
     }
+
+    try{
+      const response = await resgiterUser(formData);
+      console.log('Registration Response:', response); // Log the response
+      alert('Registration successful:' + response.User.firstname)
+
+      // Rediract to dashboard
+        // Redirect to dashboard with user's first name
+      navigate('/StudentDashboard', { state: { userName: response.User.firstname } });
+    }
+    catch(error){
+      console.error(error)
+      alert('Registration failed' + error.response?.data?.message || 'An error occured');
+    }
+    console.log('Form submitted:', formData)
 
     // Clear any existing errors
     setError('');
@@ -40,6 +58,7 @@ const StudentRegistration =({show, handleClose, children}) => {
     // Log form submission (replace with your API call)
     console.log('Form submitted:', formData);
   };
+  
 
 
 
@@ -166,7 +185,7 @@ const StudentRegistration =({show, handleClose, children}) => {
         <button type="submit">Register</button>
 
         <div>
-          Already have an account? <a href="/login">Login here</a>
+          Already have an account? <Link to="/StudentLogin">Login here</Link>
         </div>
       </form>
     </div>
